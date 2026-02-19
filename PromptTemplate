@@ -1,44 +1,82 @@
 # Prompt Template
 
+> **How to use this template**
+> This prompt is designed to work across modern AI coding tools. Drop it into:
+> - **Cursor** — Agent mode (Composer) or Chat with codebase context
+> - **Replit** — Replit Agent to scaffold and deploy directly in the browser
+> - **Claude Code** — Paste as your opening prompt in a terminal session
+> - **OpenAI Codex** — Use as the task description in a Codex agent run
+> - **GitHub Copilot Workspace** — As the task definition to kick off a multi-file plan
+> - **Chat LLMs** (ChatGPT, Claude.ai) — Still works; expect more manual iteration
+>
+> With agentic tools (Cursor, Claude Code, Replit, Codex), the AI will run code, read errors, and self-correct — your job is to review and redirect. With chat-only LLMs, you manage the iteration loop manually.
+
+---
+
 ## Instructions
 
-You are a **highly skilled software engineer** with an eye for **detail and efficient code**. I am a product manager, and together, we’re a great team! Your role is to help me develop and implement a solution based on my requirements. You:
-- **Ask questions** whenever clarification is needed.
-- **Provide feedback** when important.
+You are a **highly skilled software engineer** with an eye for **detail and efficient code**. I am the product owner, and together we are building something great. Your role is to develop and implement a solution based on my requirements. You:
 
-Your work begins with creating a **MermaidJS sequence diagram** to visualize our architecture. Please make it:
-- **Visually appealing**: use emojis and formatting.
-- **Clear on trust boundaries**: Represent client side, internet, server side, and cloud sections, including any security considerations.
+- **Ask clarifying questions** before writing code if any requirement is ambiguous.
+- **Provide feedback** when you see a better approach.
+- **Work incrementally** — build, test, and confirm each step before moving on.
 
-Once we finalize the architecture, we’ll proceed to the code.
+Start by creating a **MermaidJS sequence diagram** to visualize the architecture. Make it:
+- **Clear on trust boundaries**: show client side, internet, server side, and cloud sections, including security considerations.
+- **Visually readable**: use emojis and formatting to distinguish components.
+
+Confirm the architecture with me before writing any code.
+
+---
 
 ## Requirements
 
 ### Functional Requirements
-- **USER STORY 1**: [Brief description]
+- **USER STORY 1**: [Brief description — who does what and why]
 - **USER STORY 2**: [Brief description]
 - **USER STORY 3**: [Brief description]
-- **USER STORY N**: [Brief description]
+- **USER STORY N**: [Add as many as needed]
 
 ### Technical Requirements
-- Follow these **reference materials**: (e.g., Swagger docs)
-- Leverage **XYZ language** (e.g., Python) and follow **XYZ standards** for formatting (e.g., PEP8).
-- Ensure **verbose, descriptive comments** throughout the code.
-- Include **robust error logging and debugging** features.
-- File naming convention: **"XYZ..."**
+- **Reference materials**: [e.g., Swagger/OpenAPI docs, existing codebase files, API docs]
+- **Language & standards**: Use **[language]** (e.g., Python with PEP8, TypeScript with ESLint)
+- **Comments**: Verbose, descriptive comments throughout — explain the why, not just the what
+- **Error handling**: Robust error logging and debugging; surface meaningful messages, not silent failures
+- **File naming**: Follow the convention **[XYZ convention]**
+- **Testing**: Include unit tests for core logic; note any integration tests required
 
-### Security Features
-- **Avoid hardcoding secrets**: Integrate variables and secure storage options for secrets management.
-- **Trust boundaries** should indicate **security layers** (e.g., client/server isolation, cloud, external API calls).
+### Security Requirements
+- **No hardcoded secrets**: Use environment variables or a secrets manager (e.g., `.env`, AWS Secrets Manager, Vault)
+- **Trust boundaries**: Clearly separate client/server, internal/external, and cloud boundaries
+- **Input validation**: Sanitize and validate all user-supplied input at system boundaries
+- **Least privilege**: Request only the permissions and access the solution actually needs
 
-### Deployment Considerations
-Evaluate the best deployment options:
-- **Google Apps Script vs. Local Deployment vs. AWS Lambda vs. Tines** or any other relevant environments.
+### Deployment Target
+Choose the most appropriate option and explain your reasoning:
+
+- **Local script** — simple automation, no hosting needed
+- **Replit** — fast prototyping, shareable, built-in hosting
+- **Google Apps Script** — Google Workspace automation
+- **AWS Lambda / GCP Cloud Functions** — serverless, event-driven
+- **Docker container** — portable, environment-consistent
+- **Vercel / Netlify** — frontend or edge functions
+- **[Other]** — suggest what fits best given the requirements
+
+---
 
 ## Documentation
-- Produce a **README** file to explain usage, setup, and any relevant implementation details.
-  
+Produce a **README** covering:
+- What the solution does and why
+- Setup and installation steps
+- How to run and configure it
+- Any environment variables or secrets required
+- Known limitations or future improvements
+
 ---
 
 ## Next Steps
-Start by creating the **MermaidJS sequence diagram** based on these requirements. I will confirm the architecture before we proceed with the code implementation.
+
+1. Ask any clarifying questions now.
+2. Produce the **MermaidJS architecture diagram**.
+3. Wait for my approval before writing code.
+4. Build incrementally — confirm each component works before moving to the next.

@@ -1,23 +1,50 @@
- %% MermaidJS code for sequence diagram referenced in README
+%% MermaidJS sequence diagram — AI Dev Interaction Flowchart
+%% Shows both the traditional chat-LLM workflow and the modern agentic tool workflow
 
 sequenceDiagram
-    participant User as User
-    participant IDE as IDE
-    participant LLM as LLM (Large Language Model)
-    
-    User->>LLM: Submit crafted prompt to develop script/program
-    LLM-->>User: Provides initial code response
-    
-    User->>IDE: Store prompt in IDE for reuse/update
-    
-    loop Refine Code with Error Messages
-        User->>LLM: Send error messages or feedback
-        LLM-->>User: Sends refined code
-        User->>IDE: Update prompt in IDE (if needed)
+    participant User as 👤 User / Product Owner
+    participant Template as 📋 Prompt Template
+    participant Tool as 🤖 AI Coding Tool<br/>(Cursor / Claude Code / Replit / Codex)
+    participant Env as 🖥️ Execution Environment<br/>(IDE / Terminal / Cloud Sandbox)
+
+    User->>Template: Fill in requirements (user stories, tech stack, deployment target)
+    Template->>Tool: Submit structured prompt
+
+    Tool-->>User: Clarifying questions (if any)
+    User-->>Tool: Answers / additional context
+
+    Tool-->>User: MermaidJS architecture diagram
+    User-->>Tool: Approve or revise architecture
+
+    %% Agentic tool path (Cursor, Claude Code, Replit Agent, Codex)
+    rect rgb(220, 240, 255)
+        Note over Tool, Env: Agentic Tool Path (Cursor, Claude Code, Replit, Codex)
+        Tool->>Env: Write code, install deps, run tests
+        Env-->>Tool: Output / errors / test results
+        loop Agent self-corrects autonomously
+            Tool->>Env: Apply fix, re-run
+            Env-->>Tool: Updated results
+        end
+        Tool-->>User: Working solution ready for review
+        User-->>Tool: Feedback / redirect / approve
     end
-    
-    alt Exceeds token limits/context lost
-        User->>LLM: Start new chat for fresh context
-        User->>LLM: Submit refined prompt with attachments (current code)
-        LLM-->>User: Provides refined code based on attachments
+
+    %% Traditional chat LLM path (ChatGPT, Claude.ai)
+    rect rgb(255, 245, 220)
+        Note over User, Tool: Traditional Chat LLM Path (ChatGPT, Claude.ai)
+        Tool-->>User: Initial code response
+        User->>Env: Manually run code in local IDE
+        loop Manual iteration
+            Env-->>User: Error messages / unexpected output
+            User->>Tool: Paste errors + feedback
+            Tool-->>User: Refined code
+            User->>Env: Run again
+        end
+        alt Context window exhausted
+            User->>Tool: Start new chat
+            User->>Tool: Re-submit refined prompt + attach current code
+            Tool-->>User: Continues from current state
+        end
     end
+
+    User->>Template: Refine prompt template based on what worked
